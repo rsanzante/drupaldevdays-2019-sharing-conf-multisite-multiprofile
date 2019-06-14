@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sharing configuration in multi-site and multi-profile
+  platforms: A Modern Odyssey | Drupal Dev Days
+  Transylvania</title>
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/white.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <!-- Printing and PDF exports -->
+
+  <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <title></title>
+</head>
+<body>
+  <div class="sponsor">
+    <img src="assets/images/event-logo.png" class=
+    "logo"><span>Sharing configuration in multi-site and
+    multi-profile platforms: A Modern Odyssey <strong>| @akalam &
+    <a href=
+    "https://twitter.com/sanzante">@sanzante</a></strong></span>
+  </div>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Cover -->
+      <section data-background-transition="slide" data-background=
+      "assets/images/background-front.png" class="left">
+        <div class="left"><img src="assets/images/event-logo.png"
+        class="medium"></div>
+        <div class="featured-box-primary left">
+          <h1>Sharing configuration in multi-site and multi-profile
+          platforms: A Modern Odyssey</h1>
+        </div>
+        <div class="featured-box-secondary left xsmall">
+          David López / <span class="small">@akalam</span><br>
+          Ricardo Sanz / <span class="small">@sanzante</span>
+        </div>
+        <div class="featured-box-primary left xsmall inline-block"
+        style="float:right">
+          #DrupalDevDays
+        </div>
+      </section><!-- Personal presentation -->
+      <section data-background=
+      "assets/images/background-secondary.png">
+        <div><img src="assets/images/avatar-dl-square.jpg" class=
+        "profile-photo"></div>
+        <h4>David López</h4>
+        <div class="xsmall">
+          <em>Backend developer</em>
+        </div>
+        <p class="xsmall"><a href="drupal.org/u/akalam" target=
+        "_blank">drupal.org/u/akalam</a><br>
+        <span class="xsmall">Playing with Drupal since
+        2008</span></p><img src="assets/images/metadrop-logo.svg"
+        class="metadrop-logo">
+      </section>
+      <section data-background=
+      "assets/images/background-secondary.png">
+        <div><img src="assets/images/tunic.jpg" class=
+        "profile-photo"></div>
+        <h4>Ricardo Sanz</h4>
+        <div class="small">
+          <em>Drupal developer & DevOps</em>
+        </div>
+        <div class="small">
+          <a href="https://twitter.com/sanzante" target=
+          "_blank">sanzante</a>
+        </div>
+        <p class="xsmall"><a href="https://drupal.org/u/tunic"
+        target="_blank">drupal.org/u/tunic</a><br>
+        <span class="xsmall">Playing with Drupal since
+        2008</span></p><img src="assets/images/metadrop-logo.svg"
+        class="metadrop-logo">
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>Drupal 8.6</em>
+        <h2>Starting point</h2>
+      </section>
+
+
+
+      <section>
+        <em>Starting point</em>
+        <h3>Drupal 8.6</h3>
+        <ul>
+          <li>It allows to install a site from an existent
+          configuration.</li>
+          <li>This is not a default configuration but a site
+          configuration that's applied when a cim is done.</li>
+          <li>Initially for development purposes: <img src=
+          "assets/images/d86-install-from-config-quote.png" class=
+          "framed"></li>
+          <li>
+            <a href=
+            "https://www.drupal.org/project/drupal/issues/1613424"
+            target="_blank">1613424</a> - <span class=
+            "issue-title">[META] Allow a site to be installed from
+            existing configuration</span>
+          </li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Install from existent configuration</em>
+        <h3>How to</h3>
+        <ol>
+          <li>Place configuration in configuration directory
+          path.<br>
+            You can set your own directory if you want:
+            <pre><code data-trim="" data-noescape="">
+$config_directories[CONFIG_SYNC_DIRECTORY] = '/path/to/configuration';
+              </code></pre>
+          </li>
+          <li>Install:
+            <ul>
+              <li>Web interface: Drupal standard installation
+              page.</li>
+              <li>Drush 9.4: <em>--existing-config</em> param.
+                <pre><code data-trim="" data-noescape="">
+drush site-install --existing-config -y
+                </code></pre>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+
+
+      <section>
+        <em>Install from existent configuration</em>
+        <h2>Demo!</h2>
+        <div>
+          <a href="assets/video/demo1-edited.mp4"><img class=
+          "framed" src="assets/images/demo1-b.png"></a>
+        </div>
+      </section>
+
+
+
+      <section>
+        <em>Install from existent configuration</em>
+        <h3>Limitations</h3>
+        <ul>
+          <li>Profile can't use <em><a href=
+          "https://www.drupal.org/project/drupal/issues/2982052">hook_install<sup>*</sup></a></em></li>
+          <li>Only applicable for one site (or exact clones,
+          because configuration is the same).</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Install from existent configuration</em>
+        <h3>Use</h3>
+        <ul>
+          <li>Set up a site in certain environments (local,
+          CI).</li>
+          <li>It doesn't include content (advantage or
+          drawback?).</li>
+          <li>Allows to create installation profiles easily.</li>
+        </ul>
+      </section>
+      <section data-background=
+      "assets/images/background-secondary.png">
+        <em>Just that?</em>
+        <h2>Let's extend it!</h2>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>What we want</em>
+        <h2>Family of sites</h2>
+      </section>
+
+
+
+      <section>
+        <em>Family of sites</em>
+        <h3>What if we …?</h3>
+        <ul>
+          <li>…use installation profiles to get types of sites
+          easily installed from an existent configuration?</li>
+          <li>…use mechanisms to customize each site's
+          configuration?</li>
+          <li>…try to reuse configuration in a family of
+          sites?</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Family of sites</em>
+        <h3>Examples</h3>
+        <ul>
+          <li>Group of corporate websites.</li>
+          <li>Family of similar but different media publishing
+          websites.</li>
+          <li>SaaS website for building specific types of
+          websites.</li>
+          <li>World wide organization with sites per country,
+          region and/or events.</li>
+          <li>…</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Graphic example</em>
+        <h3>Corporation</h3><img class="framed padded" src=
+        "assets/images/corporate-drupal-sites.png">
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>Family of sites</em>
+        <h2>What and how from a Drupal perspective</h2>
+      </section>
+
+
+
+      <section>
+        <em>Family of sites</em>
+        <h3>What</h3><img src="assets/images/tree-en.png" style=
+        "width: 850px">
+      </section>
+
+
+
+      <section>
+        <em>Family of sites</em>
+        <h3>What</h3>
+        <ul>
+          <li>Set of installation profiles sharing a common
+          conf.</li>
+          <li>Installation profiles can customize the conf.</li>
+          <li>Use inheritance to create a hierarchy of installation
+          profiles.</li>
+          <li>Sites can customize their configuration as well.</li>
+          <li>Ability to enable a module that provides a complete
+          functionality to site (Features style).</li>
+          <li>In one line: we reuse code, let's reuse
+          configuration.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Family of sites</em>
+        <h3>How</h3>
+        <ul>
+          <li>Sites are installed from installation profiles and
+          get its config from the existent configuration.</li>
+          <li>The existent configuration (yml files) is shared by
+          installation profiles.</li>
+          <li>Use installation profile inheritance to extend parent
+          profiles.</li>
+          <li>
+            <a href=
+            "https://www.drupal.org/project/config_filter">Config
+            Filter</a>, <a href=
+            "https://www.drupal.org/project/config_split">Config
+            Split</a> and <a href=
+            "https://www.drupal.org/docs/8/api/configuration-api/configuration-override-system">
+            Configuration Override System</a> to customize sites's
+            configuration based on different conditions.
+          </li>
+        </ul>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>Family of sites</em>
+        <h2>Hands-on!</h2>
+      </section>
+
+
+
+      <section>
+        <em>Hands-on</em>
+        <h3>What we need</h3>
+        <ol>
+          <li>Automatically apply existent configuration on install
+          profile installation.</li>
+          <li>Install profile inheritance.</li>
+          <li>Installation profiles that share a common
+          configuration.</li>
+          <li>Enable custom site's configuration on certain
+          conditions.</li>
+        </ol>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>Hands-on</em>
+        <h2>1.- Installation profiles using existent
+        configuration</h2>
+      </section>
+
+
+
+      <section>
+        <em>1.- Installation profiles using existent
+        configuration</em>
+        <h3>What is?</h3>
+        <ul>
+          <li>What Drupal 8.6 does, but just selecting an
+          installation profile.</li>
+          <li>Site is installed using existent configuration.</li>
+          <li>First implemented in <a href=
+          "https://www.drupal.org/project/config_installer"
+            target="_blank">Config installer</a> installation
+            profile.
+          </li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>1.- Install from existent configuration</em>
+        <h3>How to</h3>
+        <div><img class="framed" src=
+        "assets/images/install-from-profile-not-from-existent-conf.png"></div>
+      </section>
+
+
+
+      <section>
+        <em>1.- Installation profiles using existent
+        configuration</em>
+        <h3>How to</h3>
+        <ul>
+          <li><em>existing-config</em> parameter needs to be
+          automatically enabled.</li>
+          <li>Enabled from installation profile code.</li>
+          <li>Implement <em>hook_install_tasks_alter()</em> on
+          <strong>MY_PROFILE.profile</strong>.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Requisite: Apply conf on profile installation</em>
+        <h3>How to</h3>
+        <pre><code data-trim="" data-noescape="">
+/* Implements hook_install_tasks_alter(). */
+function MY_PROF_install_tasks_alter(&amp;$tasks, $install_state) {
+  _MY_PROFILE_install_tasks_alter($tasks, $install_state);
+}
+
+
+function _MY_PROFILE_install_tasks_alter(&amp;$tasks, $install_state) {
+  // Use the Drupal 8.6 way of importing from existing conf.
+  if (!$install_state['parameters']['existing_config']) {
+    // @codingStandardsIgnoreLine
+    global $install_state;
+    <mark>$install_state['parameters']['existing_config'] = TRUE;</mark>
+  }
+}
+
+            </code></pre>
+        <div>
+          <em>Tested on 8.6 and 8.7.</em>
+        </div>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>Hands-on</em>
+        <h2>2.- Installation profile inheritance</h2>
+      </section>
+
+
+
+      <section>
+        <em>Requisite: Installation profile inheritance</em>
+        <h3>What is?</h3>
+        <ul>
+          <li>An installation profile is a Drupal <a href=
+          "https://www.drupal.org/project/drupal/issues/2186491">extension</a>
+          (like any module) defined by a <em>.info.yml</em> file.
+          </li>
+          <li>Using inheritance we can define an installation
+          profile hierarchy.</li>
+          <li>An installation profile also installs the ascending
+          profiles in the hierarchy.</li>
+          <li>Can implement code or configuration that is available
+          to their descendants.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Requisite: Installation profile inheritance</em>
+        <h3>How to</h3>
+        <ul>
+          <li>Used by <a href=
+          "https://www.drupal.org/project/lightning_core" target=
+          "_blank">Lightning Core</a> module, part of Acquia's
+          <a href="https://www.drupal.org/project/lightning"
+            target="_blank">Lightning</a> distribution.
+          </li>
+          <li>We need 2 patches:
+            <ul>
+              <li>
+                <a href=
+                "https://www.drupal.org/project/drupal/issues/1356276"
+                target="_blank">1356276</a> (<a href=
+                "https://www.drupal.org/files/issues/2018-10-12/1356276-531.patch">531</a>)
+                - <em>Allow profiles to define a base/parent
+                profile and load them in the correct order</em>.
+              </li>
+              <li>
+                <a href=
+                "https://www.drupal.org/project/drupal/issues/2914389"
+                target="_blank">2914389</a> (<a href=
+                "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch">8</a>)-
+                <em>Allow profiles to exclude dependencies of their
+                parent</em>.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Requisite: Installation profile inheritance</em>
+        <h3>How it works?</h3>
+        <div class="container">
+          <div class="col">
+            <strong>parent_profile.info.yml</strong>
+            <pre><code data-trim="" data-noescape="">
+name: 'Parent Profile'
+type: profile
+core: 8.x
+install:
+  - module_a
+  - module_b
+themes:
+  - my_theme
+            </code></pre>
+          </div>
+          <div class="col">
+            <strong>my_profile.info.yml</strong>
+            <pre><code data-trim="" data-noescape="">
+name: 'My Profile'
+type: profile
+core: 8.x
+'base profile': parent_profile
+install:
+  - module_c
+  - module_d
+exclude:
+  - module_b
+            </code></pre>
+          </div>
+        </div>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>Hands-on</em>
+        <h2>3.- Installation profiles sharing a common
+        configuration</h2>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>What is?</h3>
+        <ul>
+          <li>Having different installation profiles that
+          install/import configuration from same source.</li>
+          <li>A site can be installed from any available
+          installation profile and existent configuration will be
+          applied.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>Problem</h3>
+        <div>
+          <strong>core.extension.yml</strong> includes sites's
+          installation profile:
+        </div>
+        <pre><code data-trim="" data-noescape="">
+...
+  views_ui: 0
+  menu_link_content: 1
+  views: 10
+  <mark>my_profile: 1000
+profile: my_profile</mark>
+            </code></pre>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>Problem: Profile in core.extensions</h3>
+        <ul>
+          <li>Installation profile in
+          <strong>core.extension</strong> can't be altered or
+          overwritten by Config Split.</li>
+          <li>If all sites share the same configuration, all sites
+          should have the same installation profile.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>How to solve</h3>
+        <ul>
+          <li><strong>core.extension</strong> is a configuration
+          entity.</li>
+          <li>Remove installation profile from
+          <strong>core.extension.yml</strong> (shared file by all
+          profiles/sites).</li>
+          <li>Inject installation profile name in
+          <strong>core.extension</strong> configuration entity on
+          each site when needed.</li>
+          <li>When exporting configuration, strip out installation
+          profile name.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>Remove installed installation profile from
+        core.extensions.yml</h3>
+        <pre><code data-trim="" data-noescape="">
+...
+  views_ui: 0
+  menu_link_content: 1
+  views: 10
+  <del>my_profile: 1000</del>
+<span style=
+"text-decoration: line-through">profile: my_profile</span>
+            </code></pre>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>During site installation</h3>
+        <ul>
+          <li>Drupal triggers a validation error during
+          installation checks because <em>core.extensions.yml</em>
+          lacks an installation profile.</li>
+          <li>Drupal needs the installation profile name during
+          installation.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>During site installation: validation</h3>
+        <div>
+          Patch to inject installation profile on validation
+          step:<br>
+          <a href=
+          "https://www.drupal.org/project/drupal/issues/3053521"
+          target="_blank">3053521</a> (<a href=
+          "https://www.drupal.org/files/issues/2019-05-08/3053521-2.patch">2</a>)-
+          <em>Allow core.extension.yml to have empty profile on
+          install site from existing configuration</em>
+        </div>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>During site install: actual installation</h3>
+        <div>
+          Inject installation profile during installation from the
+          installation profile code itself
+          (<em>hook_install_tasks_alter()</em>)
+          <pre><code data-trim="" data-noescape="">
+// The installation profile has been removed from core.extension.yml
+// but this config is required for a complete installation.
+if ($install_state['active_task'] == 'install_config_import_batch'){
+  $profile = $install_state['parameters']['profile'];
+  \Drupal::configFactory()-&gt;getEditable('core.extension')
+    -&gt;set('profile', $profile)
+    -&gt;save();
+}
+            </code></pre>
+        </div>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>During site life: export/import config</h3>
+        <ul>
+          <li>When exporting configuration (<em>cex</em>) Drupal
+          would write the site's installation profile into
+          <em>core.extensions.yml</em>.</li>
+          <li>When importing configuration (<em>cim</em>) Drupal
+          would trigger an error becuase there's no installation
+          profile in <em>core.extensions.yml</em>.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>During site life: export/import config</h3>
+        <div>
+          Implement a <a href=
+          "https://www.drupal.org/project/config_filter" target=
+          "_blank">ConfigFilter</a> pluging to inject/remove
+          installation profile during configuration import/export.
+        </div>
+        <pre><code data-trim="" data-noescape="">
+/**
+ * Excludes installation profile from to core.extension.yml.
+ *
+ * @ConfigFilter(
+ *  id = "MY_PROFILE_exclude_profile",
+ *  label = "Allows to exclude the profile from core.extension.yml",
+ *  storages = {"config.storage.sync"},
+ *  weight = 10
+ * )
+ */
+class ExcludeProfile extends ConfigFilterBase
+      implements ContainerFactoryPluginInterface {
+...
+
+        </code></pre>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>During site life: export/import config</h3>
+        <div>
+          Method to filter out installation profile from
+          <em>core.extensions.yml</em> when exporting
+          configuration.
+        </div>
+        <pre><code>
+/**
+* {@inheritdoc}
+*/
+public function filterWrite($name, array $data) {
+  if ($name == 'core.extension' &amp;& isset($data['profile'])) {
+    unset($data['profile']);
+  }
+  return parent::filterWrite($name, $data);
+}
+        </code></pre>
+      </section>
+
+
+
+      <section>
+        <em>3.- Installation profiles sharing a common
+        configuration</em>
+        <h3>During site life: export/import config</h3>
+        <div>
+          Method to inject installation profile to
+          <em>core.extensions.yml</em> when importing
+          configuration.
+        </div>
+        <pre><code data-trim="" data-noescape="">
+/**
+* {@inheritdoc}
+*/
+public function filterRead($name, $data) {
+  if ($name == 'core.extension') {
+    $data['profile'] = $this-&gt;profile;
+  }
+  return parent::filterRead($name, $data);
+}
+        </code></pre>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>Hands-on</em>
+        <h2>4.- Enable config under certain conditions on
+        sites</h2>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>What is?</h3>
+        <ul>
+          <li>Allow to customize shared configuration (or apply
+          certain config entities from files) based on different
+          conditions.</li>
+          <li>We can have specific configurations for:
+            <ul>
+              <li>Installation profile.</li>
+              <li>Environments.</li>
+              <li>Site.</li>
+              <li>Functionality.</li>
+              <li>…</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>How to</h3>
+        <div><span>Using the power of Config Split.</span>
+        <img class="framed padded" src=
+        "assets/images/config-split-simple-h.png"></div>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>Config splits</h3>
+        <ul>
+          <li>Config splits represent a certain package of
+          functionality (per site, per environment, per module,
+          etc).</li>
+          <li>Config splits are initially disabled.</li>
+          <li>Config splits are enabled when conditions are meet
+          (current site, current environment, site's profile,
+          installed module, etc).</li>
+          <li>When config is imported, enabled splits "alter" the
+          read configuration.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>Config splits</h3>
+        <div><img class="framed padded" src=
+        "assets/images/config-split-detail.png"></div>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>Two cases: non-Drupal condition</h3>
+        <ul>
+          <li><strong>Key</strong>: Drupal "bootstrap" is not
+          needed to check condition.</li>
+          <li>Config splits are activated by simple
+          conditions.</li>
+          <li>Common way to enable splits.</li>
+          <li>Example: using a settings.local.php to enable by
+          environment.</li>
+          <li>Example: using simple code that checks available
+          data, like request's domain.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>Two cases: Drupal condition</h3>
+        <ul>
+          <li><strong>Key</strong>: Drupal "bootstrap" needed to
+          check condition.</li>
+          <li>If Drupal is not "bootstrapped" (like in setting.php)
+          is too soon to run Drupal services.</li>
+          <li>Services are needed for enabling a config split if a
+          module is installed (Features style).</li>
+          <li>Relying on global variables is a bad practice.</li>
+          <li>Solution: Enable the config splits with a <a href=
+          "https://www.drupal.org/docs/8/api/configuration-api/configuration-override-system#providing-overrides-from-modules"
+            target="_blank">configuration override service</a>!
+          </li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>Configuration override service: how to</h3>
+        <ul>
+          <li>Create a service that implements
+          <em>ConfigFactoryOverrideInterface</em>.
+            <pre><code data-trim="" data-noescape="">
+class ConfigOverrides implements ConfigFactoryOverrideInterface {
+            </code></pre>
+          </li>
+          <li>And tell Drupal to use it!
+            <pre><code data-trim="" data-noescape="">
+services:
+  blog.overrider:
+    class: Drupal\blog\ConfigOverrides
+    arguments:
+      - '%container.modules%'
+      - '%install_profile%'
+    tags:
+      - {name: config.factory.override}
+            </code></pre>
+          </li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>4.- Enable config under certain conditions on
+        sites</em>
+        <h3>Configuration override service: how to</h3>
+        <ul>
+          <li>The service hooks into configuration management and
+          enable the config splits.</li>
+          <li>Because it's a service it has all the info available
+          (see params).</li>
+          <li>More details in the session's example
+          repository: <a href="https://bitbucket.org/david_akalam/metadrop-ddd_2019_examples/src/dev/">https://bitbucket.org/david_akalam/metadrop-ddd_2019_examples/src/dev/</a></li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Sharing configuration multisite multiprofile</em>
+        <h2>Demo!</h2>
+        <div><img class="framed padded" src=
+        "assets/images/demo2-b.png"></div>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-secondary-invert.png">
+        <em>After a long journey…</em>
+        <h2>Recap</h2>
+      </section>
+
+
+
+      <section>
+        <em>Recap</em>
+        <h3>Benefits</h3>
+        <ul>
+          <li>Configuration reuse in a multisite multiprofile
+          environment.</li>
+          <li>Customized configuration based on almost any
+          condition.</li>
+          <li>Build and envolve family of sites easily (or not die
+          trying!).</li>
+          <li>Factories of sites.</li>
+          <li>Drastic cost reduction in the medium to long term for
+          large families of sites.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Recap</em>
+        <h3>Limitations</h3>
+        <ul>
+          <li>Sites configuration must be related.</li>
+          <li>Installation profiles must be in same hierachy.</li>
+          <li>Complex to design the <em>splits</em> structure and
+          distribute configuration among them.</li>
+          <li>Sites configuration can't be too customized.</li>
+          <li>High initial cost.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <h3>Final notes</h3>
+        <ul>
+          <li>This is a platform of related sites.</li>
+          <li>You don't need multisite for this.</li>
+          <li>You could use just an installation profile.</li>
+          <li>Therefore, you don't need installation profile
+          inheritance.</li>
+          <li>This is not likely to be in core. Core should stay
+          simple and cover many cases but no all.</li>
+        </ul>
+      </section>
+
+
+
+      <section>
+        <em>Final notes</em>
+        <h3>CMI 2.0</h3>
+        <ul>
+          <li>See <a href=
+          "https://www.drupal.org/project/cmi2/issues/3008882">Roadmap
+          for CMI 2</a>.
+          </li>
+          <li>Work in progress! Help is much appreciated!</li>
+          <li>Three focus: improve docs, enviroment specific
+          configuration and cross configuration workflows.</li>
+          <li>Config Transform import/export events that allow
+          subscribers to modify config.</li>
+          <li>Experimental Configuration Environment to change
+          environment from command or UI.</li>
+        </ul>
+      </section>
+      <section data-background=
+      "assets/images/background-primary.png">
+        <h3>Questions?</h3>
+      </section>
+      <section class="white" data-background=
+      "assets/images/background-primary.png">
+        <br>
+        <br>
+        <h3>What did you think?</h3>
+        <div class="xsmall">
+          <span>Locate this session at the Drupal Developer Days
+          Transylvania 2019 website:</span><br>
+          <a href=
+          "https://cluj2019.drupaldays.org/schedule">https://cluj2019.drupaldays.org/schedule</a><br>
+
+          <br>
+          <span>Take the survey!</span><br>
+          <a href=
+          "https://www.surveymonkey.com/r/drupaltransylvania">https://www.surveymonkey.com/r/drupaltransylvania</a><br>
+
+          <br>
+        </div>
+        <h4>Thanks!!!</h4>
+        <div class="small white"></div>
+        <div><img src="assets/images/event-logo.png" class=
+        "medium"></div>
+      </section>
+    </div>
+  </div>
+  <script src="lib/js/head.min.js">
+  </script>
+  <script src="js/reveal.js">
+  </script>
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        hash: true,
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.2.0">
+</body>
+</html>
