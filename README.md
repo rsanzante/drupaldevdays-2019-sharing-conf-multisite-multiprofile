@@ -7,8 +7,8 @@ See [presentation](https://rsanzante.github.io/drupaldevdays-2019-sharing-conf-m
 
 Demo files:
   - [Demo 1](https://rsanzante.github.io/drupaldevdays-2019-sharing-conf-multisite-multiprofile/slides/assets/video/demo1.mp4).
-  - [Demo 2a](https://rsanzante.github.io/drupaldevdays-2019-sharing-conf-multisite-multiprofile/slides/assets/video/demo2a.mp4).
-  - [Demo 2b](https://rsanzante.github.io/drupaldevdays-2019-sharing-conf-multisite-multiprofile/slides/assets/video/demo2b.mp4).
+  - [Demo 2a](https://rsanzante.github.io/drupaldevdays-2019-sharing-conf-multisite-multiprofile/slides/assets/video/demo2a.mkv).
+  - [Demo 2b](https://rsanzante.github.io/drupaldevdays-2019-sharing-conf-multisite-multiprofile/slides/assets/video/demo2b.mkv).
 
 Thanks to <a href="https://metadrop.net/en/">Metadrop</a>.
 
